@@ -5,6 +5,18 @@
     },
     "dirt": {
       "model": "minecraft:block/dirt"
+    },
+    "axis=x": {
+      "model": "sundered_mod:block/pit_block_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "sundered_mod:block/pit_block"
+    },
+    "axis=z": {
+      "model": "sundered_mod:block/pit_block_horizontal",
+      "x": 90
     }
   }
 }

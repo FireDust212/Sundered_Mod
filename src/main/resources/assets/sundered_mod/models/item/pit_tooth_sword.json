@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "sundered_mod:item/pit_tooth_sword"
+  }
+}

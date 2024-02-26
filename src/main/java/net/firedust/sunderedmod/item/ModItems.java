@@ -17,6 +17,8 @@ public class ModItems {
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> PITTOOTH = ITEMS.register("pittooth",
             () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PITTOOTHSWORD = ITEMS.register("pit_tooth_sword",
+            () -> new Item(new Item.Properties()));
 
 
     // Register the register
