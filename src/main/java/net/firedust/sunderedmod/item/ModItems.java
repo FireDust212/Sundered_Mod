@@ -1,7 +1,10 @@
 package net.firedust.sunderedmod.item;
 
 import net.firedust.sunderedmod.SunderedMod;
+import net.firedust.sunderedmod.item.custom.ScannerItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.Tiers;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -14,11 +17,11 @@ public class ModItems {
 
     // Add an item
     public static final RegistryObject<Item> SCANNER = ITEMS.register("scanner",
-            () -> new Item(new Item.Properties()));
+            () -> new ScannerItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> PITTOOTH = ITEMS.register("pittooth",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> PITTOOTHSWORD = ITEMS.register("pit_tooth_sword",
-            () -> new Item(new Item.Properties()));
+            () -> new SwordItem(Tiers.IRON, 3, -1.4F, new Item.Properties()));
 
 
     // Register the register

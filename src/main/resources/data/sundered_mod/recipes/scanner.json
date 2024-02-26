@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "sundered",
+  "pattern": [
+    "dir",
+    "ipi",
+    "iii"
+  ],
+  "key": {
+    "d": {
+      "item": "minecraft:diamond"
+    },
+    "i": {
+      "item": "minecraft:iron_nugget"
+    },
+    "r": {
+      "item": "minecraft:redstone"
+    },
+    "p": {
+      "item": "sundered_mod:pittooth"
+    }
+  },
+  "result": {
+    "item": "sundered_mod:scanner"
+  }
+}

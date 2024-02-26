@@ -1,6 +1,7 @@
 package net.firedust.sunderedmod.block;
 
 import net.firedust.sunderedmod.SunderedMod;
+import net.firedust.sunderedmod.block.custom.PitBlock;
 import net.firedust.sunderedmod.item.ModItems;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
@@ -23,7 +24,7 @@ public class ModBlocks {
 
     // Actually create a block
     public static final RegistryObject<Block> PIT_BLOCK = registerBlock("pit_block",
-            () -> new DropExperienceBlock(  // This block drops experience
+            () -> new PitBlock(  // This block drops experience
                     BlockBehaviour.Properties
                             .copy(Blocks.STONE)             // Block to copy properties from
                             .sound(SoundType.WART_BLOCK)    // Sound for the block
