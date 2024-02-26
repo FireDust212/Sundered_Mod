@@ -2,10 +2,13 @@ package net.firedust.sunderedmod.block;
 
 import net.firedust.sunderedmod.SunderedMod;
 import net.firedust.sunderedmod.item.ModItems;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DropExperienceBlock;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -20,8 +23,14 @@ public class ModBlocks {
 
     // Actually create a block
     public static final RegistryObject<Block> PIT_BLOCK = registerBlock("pit_block",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.POWDER_SNOW)));
-    // Duplicate the above two lines to create a new block (and teh relevant json files and such
+            () -> new DropExperienceBlock(  // This block drops experience
+                    BlockBehaviour.Properties
+                            .copy(Blocks.STONE)             // Block to copy properties from
+                            .sound(SoundType.WART_BLOCK)    // Sound for the block
+                            .requiresCorrectToolForDrops(), // Technically covered by copying stone, but just making sure
+                     UniformInt.of(3, 6)) // Exp
+    );
+    // Duplicate the above two lines to create a new block (and the relevant json files and such
 
     // Helper methods
 
