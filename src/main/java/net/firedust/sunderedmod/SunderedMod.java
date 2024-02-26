@@ -1,6 +1,7 @@
 package net.firedust.sunderedmod;
 
 import com.mojang.logging.LogUtils;
+import net.firedust.sunderedmod.block.ModBlocks;
 import net.firedust.sunderedmod.item.ModCreativeModeTabs;
 import net.firedust.sunderedmod.item.ModItems;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -33,6 +34,9 @@ public class SunderedMod {
         // Setup items
         ModItems.register(modEventBus);
 
+        // Setup Blocks
+        ModBlocks.register(modEventBus);
+
         modEventBus.addListener(this::commonSetup);
 
         MinecraftForge.EVENT_BUS.register(this);
@@ -47,15 +51,15 @@ public class SunderedMod {
 
     // Add the items to a vanilla tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        // Find the right tab
-        if (event.getTabKey() == CreativeModeTabs.REDSTONE_BLOCKS) {
-            // Add the item
-            event.accept(ModItems.SCANNER);
-        }
-        if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
-            // Add the item
-            event.accept(ModItems.PITTOOTH);
-        }
+//        // Find the right tab
+//        if (event.getTabKey() == CreativeModeTabs.REDSTONE_BLOCKS) {
+//            // Add the item
+//            event.accept(ModItems.SCANNER);
+//        }
+//        if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
+//            // Add the item
+//            event.accept(ModItems.PITTOOTH);
+//        }
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call

@@ -1,6 +1,7 @@
 package net.firedust.sunderedmod.item;
 
 import net.firedust.sunderedmod.SunderedMod;
+import net.firedust.sunderedmod.block.ModBlocks;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -22,6 +23,7 @@ public class ModCreativeModeTabs {
                     .displayItems((itemDisplayParameters, output) -> {                      // Items to display
                         output.accept(ModItems.PITTOOTH.get());                             // Order of items is order in tab
                         output.accept(ModItems.SCANNER.get());
+                        output.accept(ModBlocks.PIT_BLOCK.get());
                         // Vanilla items can be added here
                     })
                     .build());                                                              // Build

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "": {
+      "model": "sundered_mod:block/pit_block"
+    },
+    "dirt": {
+      "model": "minecraft:block/dirt"
+    }
+  }
+}
