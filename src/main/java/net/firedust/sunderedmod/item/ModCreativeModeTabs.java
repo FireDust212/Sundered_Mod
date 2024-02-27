@@ -22,6 +22,8 @@ public class ModCreativeModeTabs {
                     .title(Component.translatable("creativetab.sundered_tab"))        // Name for tab
                     .displayItems((itemDisplayParameters, output) -> {                      // Items to display
                         output.accept(ModItems.PITTOOTH.get());                             // Order of items is order in tab
+                        output.accept(ModItems.PITFLESH.get());
+                        output.accept(ModItems.COOKEDPITFLESH.get());
                         output.accept(ModItems.PITTOOTHSWORD.get());
                         output.accept(ModItems.SCANNER.get());
                         output.accept(ModBlocks.PIT_BLOCK.get());

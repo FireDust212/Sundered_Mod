@@ -5,7 +5,7 @@
   "pattern": [
     "dir",
     "ipi",
-    "iii"
+    "ifi"
   ],
   "key": {
     "d": {
@@ -19,6 +19,9 @@
     },
     "p": {
       "item": "sundered_mod:pittooth"
+    },
+    "f": {
+      "item": "sundered_mod:pit_flesh"
     }
   },
   "result": {

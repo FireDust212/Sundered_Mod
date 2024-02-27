@@ -18,10 +18,18 @@ public class ModItems {
     // Add an item
     public static final RegistryObject<Item> SCANNER = ITEMS.register("scanner",
             () -> new ScannerItem(new Item.Properties().stacksTo(1)));
+
     public static final RegistryObject<Item> PITTOOTH = ITEMS.register("pittooth",
             () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PITFLESH = ITEMS.register("pit_flesh",
+            () -> new Item(new Item.Properties().food(ModFoods.PIT_FLESH)));
+    public static final RegistryObject<Item> COOKEDPITFLESH = ITEMS.register("cooked_pit_flesh",
+            () -> new Item(new Item.Properties().food(ModFoods.COOKED_PIT_FLESH)));
+
     public static final RegistryObject<Item> PITTOOTHSWORD = ITEMS.register("pit_tooth_sword",
             () -> new SwordItem(Tiers.IRON, 3, -1.4F, new Item.Properties()));
+
+
 
 
     // Register the register
