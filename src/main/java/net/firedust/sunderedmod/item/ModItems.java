@@ -27,7 +27,7 @@ public class ModItems {
             () -> new Item(new Item.Properties().food(ModFoods.COOKED_PIT_FLESH)));
 
     public static final RegistryObject<Item> PITTOOTHSWORD = ITEMS.register("pit_tooth_sword",
-            () -> new SwordItem(Tiers.IRON, 3, -1.4F, new Item.Properties()));
+            () -> new SwordItem(Tiers.IRON, 1, -1.4F, new Item.Properties()));
 
 
 

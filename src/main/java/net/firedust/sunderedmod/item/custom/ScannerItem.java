@@ -8,8 +8,12 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpyglassItem;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class ScannerItem extends SpyglassItem {
     public ScannerItem(Properties pProperties) {
@@ -47,5 +51,12 @@ public class ScannerItem extends SpyglassItem {
             ((Player)pPlayer).getCooldowns().addCooldown(this, 1200);
         }
         return resultHolder;
+    }
+
+    // Tooltip
+    @Override
+    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
+        pTooltipComponents.add(Component.translatable("tooltip.sundered_mod.scanner_tooltip"));
+        super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
     }
 }

@@ -6,7 +6,10 @@
   "item.sundered_mod.pit_tooth_sword": "Pit tooth sword",
   "item.sundered_mod.scanner": "Scanner",
 
+  "tooltip.sundered_mod.scanner_tooltip": "Helps you find pits.",
+
   "block.sundered_mod.pit_block": "Pit block",
+  "tooltip.sundered_mod.pit_block": "Why? Why would you hold this?",
 
   "creativetab.sundered_tab": "Sundered Mod Tab"
 }
