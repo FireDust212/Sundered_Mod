@@ -1,6 +1,7 @@
 package net.firedust.sunderedmod.item.custom;
 
 import net.firedust.sunderedmod.block.ModBlocks;
+import net.firedust.sunderedmod.util.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -36,8 +37,8 @@ public class ScannerItem extends SpyglassItem {
                         // Get the state of the block
                         BlockState state = pLevel.getBlockState(new BlockPos(x, y, z));
 
-                        // If it is a pit block
-                        if (state.is(ModBlocks.PIT_BLOCK.get())){
+                        // If it is a pit component block
+                        if (state.is(ModTags.Blocks.PIT_COMPONENTS)){
                             // For now just tell the coordinates and break from the loop
                             pPlayer.sendSystemMessage(Component.literal("Watch your step!"));
                             x = target.getX()+5;
