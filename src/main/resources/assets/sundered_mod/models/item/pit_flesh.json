@@ -1,6 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "sundered_mod:item/pit_flesh"
-  }
-}
