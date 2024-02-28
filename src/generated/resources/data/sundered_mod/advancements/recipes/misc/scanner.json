@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_pittooth": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "sundered_mod:pittooth"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "sundered_mod:scanner"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_pittooth"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "sundered_mod:scanner"
+    ]
+  },
+  "sends_telemetry_event": false
+}

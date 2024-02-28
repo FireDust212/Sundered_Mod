@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "p": {
+      "item": "sundered_mod:pittooth"
+    },
+    "s": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "p",
+    "p",
+    "s"
+  ],
+  "result": {
+    "item": "sundered_mod:pit_tooth_sword"
+  },
+  "show_notification": true
+}

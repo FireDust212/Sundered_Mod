@@ -42,9 +42,35 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy(getHasName(ModItems.PITTOOTH.get()), has(ModItems.PITTOOTH.get()))
                 .save(recipeOutput);
 
-        SimpleCookingRecipeBuilder.campfireCooking(Ingredient.of(ModItems.PITTOOTH.get()),RecipeCategory.FOOD, ModItems.COOKEDPITFLESH.get(), 0.35F, 600);
-        SimpleCookingRecipeBuilder.smoking(Ingredient.of(ModItems.PITTOOTH.get()),RecipeCategory.FOOD, ModItems.COOKEDPITFLESH.get(), 0.35F, 100);
-        SimpleCookingRecipeBuilder.smelting(Ingredient.of(ModItems.PITTOOTH.get()),RecipeCategory.FOOD, ModItems.COOKEDPITFLESH.get(), 0.35F, 200);
+        SimpleCookingRecipeBuilder
+                .campfireCooking(Ingredient.of(ModItems.PITFLESH.get())
+                        ,RecipeCategory.FOOD,
+                        ModItems.COOKEDPITFLESH.get(),
+                        0.35F,
+                        600)
+                .unlockedBy(getHasName(ModItems.PITFLESH.get()), has(ModItems.PITFLESH.get()))
+                .save(recipeOutput,
+                        SunderedMod.MOD_ID + ":" + getItemName(ModItems.COOKEDPITFLESH.get()) + "_from_campfire");
+
+        SimpleCookingRecipeBuilder
+                .smoking(Ingredient.of(ModItems.PITFLESH.get()),
+                        RecipeCategory.FOOD,
+                        ModItems.COOKEDPITFLESH.get(),
+                        0.35F,
+                        100)
+                .unlockedBy(getHasName(ModItems.PITFLESH.get()), has(ModItems.PITFLESH.get()))
+                .save(recipeOutput,
+                        SunderedMod.MOD_ID + ":" + getItemName(ModItems.COOKEDPITFLESH.get()) + "_from_smoking");
+
+        SimpleCookingRecipeBuilder
+                .smelting(Ingredient.of(ModItems.PITFLESH.get()),
+                        RecipeCategory.FOOD,
+                        ModItems.COOKEDPITFLESH.get(),
+                        0.35F,
+                        200)
+                .unlockedBy(getHasName(ModItems.PITFLESH.get()), has(ModItems.PITFLESH.get()))
+                .save(recipeOutput,
+                        SunderedMod.MOD_ID + ":" + getItemName(ModItems.COOKEDPITFLESH.get()) + "_from_smelting");
     }
 
 

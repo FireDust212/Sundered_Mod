@@ -2,21 +2,27 @@ package net.firedust.sunderedmod.block.custom;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.DropExperienceBlock;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class PitBlock extends DropExperienceBlock {
+public class PitBlock extends RotatedPillarBlock {
+    private final IntProvider xpRange;
+
     public PitBlock(Properties pProperties, IntProvider pXpRange) {
-        super(pProperties, pXpRange);
+        super(pProperties);
+        this.xpRange = pXpRange;
     }
 
     // Same stepOn method as magma block, but without the sneaking and frostwalker check
@@ -37,5 +43,14 @@ public class PitBlock extends DropExperienceBlock {
     public void appendHoverText(ItemStack pStack, @Nullable BlockGetter pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
         pTooltipComponents.add(Component.translatable("tooltip.sundered_mod.pit_block"));
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
+    }
+
+    // Use the methods in a DropExperienceBlock
+    public void spawnAfterBreak(BlockState pState, ServerLevel pLevel, BlockPos pPos, ItemStack pStack, boolean pDropExperience) {
+        super.spawnAfterBreak(pState, pLevel, pPos, pStack, pDropExperience);
+    }
+
+    public int getExpDrop(BlockState state, LevelReader level, RandomSource randomSource, BlockPos pos, int fortuneLevel, int silkTouchLevel) {
+        return silkTouchLevel == 0 ? this.xpRange.sample(randomSource) : 0;
     }
 }

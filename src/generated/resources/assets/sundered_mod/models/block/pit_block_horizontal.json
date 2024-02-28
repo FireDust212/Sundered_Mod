@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "sundered_mod:block/pit_block_teeth",
+    "side": "sundered_mod:block/pit_block_side"
+  }
+}

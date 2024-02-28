@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "category": "food",
+  "cookingtime": 600,
+  "experience": 0.35,
+  "ingredient": {
+    "item": "sundered_mod:pit_flesh"
+  },
+  "result": "sundered_mod:cooked_pit_flesh"
+}
