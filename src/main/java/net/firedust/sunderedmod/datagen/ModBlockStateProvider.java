@@ -7,6 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
+import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -18,9 +19,13 @@ public class ModBlockStateProvider extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
         //blockWithItem(ModBlock.____);    // <-- Sets up a block
-        axisBlock((RotatedPillarBlock) ModBlocks.PIT_BLOCK.get(),
-                new ResourceLocation("sundered_mod","block/pit_block_side"),
-                new ResourceLocation("sundered_mod","block/pit_block_teeth"));
+
+        ResourceLocation pitSide = new ResourceLocation("sundered_mod","block/pit_block_side");
+        ResourceLocation pitTeeth = new ResourceLocation("sundered_mod","block/pit_block_teeth");
+
+        axisBlock((RotatedPillarBlock) ModBlocks.PIT_BLOCK.get(), pitSide, pitTeeth);
+        simpleBlockItem((RotatedPillarBlock) ModBlocks.PIT_BLOCK.get(),
+                (ModelFile)this.models().cubeColumn("pit_block", pitSide, pitTeeth));
     }
 
     // Makes a custom block as well as the item for it, just by passing in a block registry
