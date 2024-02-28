@@ -1,0 +1,30 @@
+[28Feb2024 18:47:00.925] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forge_userdev_data, --assetIndex, 8, --assetsDir, C:\Users\ashla\.gradle\caches\forge_gradle\assets, --gameDir, ., --fml.forgeVersion, 48.1.0, --fml.mcVersion, 1.20.2, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20230921.100330, --mod, sundered_mod, --all, --output, D:\Repos\forge-1.20.2-48.1.0-mdk\src\generated\resources, --existing, D:\Repos\forge-1.20.2-48.1.0-mdk\src\main\resources]
+[28Feb2024 18:47:00.928] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: JVM identified as Eclipse Adoptium OpenJDK 64-Bit Server VM 17.0.10+7
+[28Feb2024 18:47:00.930] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.1.1 starting: java version 17.0.10 by Eclipse Adoptium; OS Windows 10 arch amd64 version 10.0
+[28Feb2024 18:47:01.100] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forge_userdev_data
+[28Feb2024 18:47:01.175] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/ashla/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23127!/ Service=ModLauncher Env=UNKNOWN
+[28Feb2024 18:47:01.515] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\ashla\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlcore\1.20.2-48.1.0\7a8d252b70bac3cde4ec0e82bd816fe0212551d\fmlcore-1.20.2-48.1.0.jar is missing mods.toml file
+[28Feb2024 18:47:01.521] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\ashla\.gradle\caches\modules-2\files-2.1\net.minecraftforge\javafmllanguage\1.20.2-48.1.0\d034c6f69f1f1cf324bdd7bbc66896e67990bbef\javafmllanguage-1.20.2-48.1.0.jar is missing mods.toml file
+[28Feb2024 18:47:01.526] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\ashla\.gradle\caches\modules-2\files-2.1\net.minecraftforge\lowcodelanguage\1.20.2-48.1.0\ac35e86aee5633ea200ae1607b4ca48b24cd845\lowcodelanguage-1.20.2-48.1.0.jar is missing mods.toml file
+[28Feb2024 18:47:01.531] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\ashla\.gradle\caches\modules-2\files-2.1\net.minecraftforge\mclanguage\1.20.2-48.1.0\7ddb9ee7a72eb906db86ca9490f35be1789c2813\mclanguage-1.20.2-48.1.0.jar is missing mods.toml file
+[28Feb2024 18:47:01.619] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: No dependencies to load found. Skipping!
+[28Feb2024 18:47:02.983] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forge_userdev_data' with arguments [--gameDir, ., --assetsDir, C:\Users\ashla\.gradle\caches\forge_gradle\assets, --assetIndex, 8, --mod, sundered_mod, --all, --output, D:\Repos\forge-1.20.2-48.1.0-mdk\src\generated\resources, --existing, D:\Repos\forge-1.20.2-48.1.0-mdk\src\main\resources]
+[28Feb2024 18:47:08.374] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 48.1.0, for MC 1.20.2 with MCP 20230921.100330
+[28Feb2024 18:47:08.377] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v48.1.0 Initialized
+[28Feb2024 18:47:08.772] [main/INFO] [net.minecraftforge.data.loading.DatagenModLoader/]: Initializing Data Gatherer for mods [sundered_mod]
+[28Feb2024 18:47:08.859] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/ashla/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.2-48.1.0_mapped_parchment_2023.10.08-1.20.2/forge-1.20.2-48.1.0_mapped_parchment_2023.10.08-1.20.2.jar%23188!/assets/.mcassetsroot' uses unexpected schema
+[28Feb2024 18:47:08.860] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/ashla/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.2-48.1.0_mapped_parchment_2023.10.08-1.20.2/forge-1.20.2-48.1.0_mapped_parchment_2023.10.08-1.20.2.jar%23188!/data/.mcassetsroot' uses unexpected schema
+[28Feb2024 18:47:09.063] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Recipes
+[28Feb2024 18:47:09.170] [main/INFO] [net.minecraft.data.DataGenerator/]: Recipes finished after 106 ms
+[28Feb2024 18:47:09.170] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Loot Tables
+[28Feb2024 18:47:09.210] [main/INFO] [net.minecraft.data.DataGenerator/]: Loot Tables finished after 39 ms
+[28Feb2024 18:47:09.210] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Block States: sundered_mod
+[28Feb2024 18:47:09.348] [main/INFO] [net.minecraft.data.DataGenerator/]: Block States: sundered_mod finished after 137 ms
+[28Feb2024 18:47:09.348] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Item Models: sundered_mod
+[28Feb2024 18:47:09.353] [main/INFO] [net.minecraft.data.DataGenerator/]: Item Models: sundered_mod finished after 5 ms
+[28Feb2024 18:47:09.354] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Tags for minecraft:block mod id sundered_mod
+[28Feb2024 18:47:09.364] [main/INFO] [net.minecraft.data.DataGenerator/]: Tags for minecraft:block mod id sundered_mod finished after 10 ms
+[28Feb2024 18:47:09.364] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Tags for minecraft:item mod id sundered_mod
+[28Feb2024 18:47:09.365] [main/INFO] [net.minecraft.data.DataGenerator/]: Tags for minecraft:item mod id sundered_mod finished after 0 ms
+[28Feb2024 18:47:09.365] [main/INFO] [net.minecraft.data.DataGenerator/]: All providers took: 303 ms
+[28Feb2024 18:47:09.377] [main/INFO] [net.minecraft.data.HashCache/]: Caching: total files: 23, old count: 22, new count: 24, removed stale: 0, written: 1
