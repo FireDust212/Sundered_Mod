@@ -22,7 +22,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItems.PITTOOTH);
 
         simpleItem(ModItems.PITTOOTHSWORD);
-        simpleItem(ModItems.SCANNER);
+        //simpleItem(ModItems.SCANNER);
     }
 
     // Custom method
