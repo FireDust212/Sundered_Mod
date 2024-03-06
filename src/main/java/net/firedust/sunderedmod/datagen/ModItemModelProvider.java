@@ -21,7 +21,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItems.PITFLESH);
         simpleItem(ModItems.PITTOOTH);
 
-        simpleItem(ModItems.PITTOOTHSWORD);
+        handheldItem(ModItems.PITTOOTHSWORD);
         //simpleItem(ModItems.SCANNER);
     }
 
@@ -29,6 +29,13 @@ public class ModItemModelProvider extends ItemModelProvider {
     private ItemModelBuilder simpleItem(RegistryObject<Item> item){
         return withExistingParent(item.getId().getPath(),                   // Json file with parent
                 new ResourceLocation("item/generated")).texture("layer0",   // In item/generated
+                new ResourceLocation(SunderedMod.MOD_ID, "item/" + item.getId().getPath()));    // layer0 is iem/[item name] as texture
+    }
+
+    // Custom method
+    private ItemModelBuilder handheldItem(RegistryObject<Item> item){
+        return withExistingParent(item.getId().getPath(),                   // Json file with parent
+                new ResourceLocation("item/handheld")).texture("layer0",   // In item/handheld
                 new ResourceLocation(SunderedMod.MOD_ID, "item/" + item.getId().getPath()));    // layer0 is iem/[item name] as texture
     }
 }
