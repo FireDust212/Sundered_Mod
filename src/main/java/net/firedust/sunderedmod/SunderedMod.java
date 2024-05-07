@@ -2,8 +2,11 @@ package net.firedust.sunderedmod;
 
 import com.mojang.logging.LogUtils;
 import net.firedust.sunderedmod.block.ModBlocks;
+import net.firedust.sunderedmod.entity.ModEntities;
+import net.firedust.sunderedmod.entity.client.PitCreatureRenderer;
 import net.firedust.sunderedmod.item.ModCreativeModeTabs;
 import net.firedust.sunderedmod.item.ModItems;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -36,6 +39,9 @@ public class SunderedMod {
 
         // Setup Blocks
         ModBlocks.register(modEventBus);
+
+        // Entities
+        ModEntities.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 
@@ -73,7 +79,7 @@ public class SunderedMod {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
-
+            EntityRenderers.register(ModEntities.PIT_CREATURE.get(), PitCreatureRenderer::new);
         }
     }
 }

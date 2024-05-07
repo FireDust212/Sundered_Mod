@@ -1,5 +1,7 @@
 package net.firedust.sunderedmod.block.custom;
 
+import net.firedust.sunderedmod.entity.ModEntities;
+import net.firedust.sunderedmod.entity.custom.PitCreatureEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -28,7 +30,8 @@ public class PitBlock extends RotatedPillarBlock {
     // Same stepOn method as magma block, but without the sneaking and frostwalker check
     @Override
     public void stepOn(Level pLevel, BlockPos pPos, BlockState pState, Entity pEntity) {
-        pEntity.hurt(pLevel.damageSources().hotFloor(), 1.0F);
+        if (!(pEntity instanceof PitCreatureEntity))
+            pEntity.hurt(pLevel.damageSources().hotFloor(), 1.0F);
         super.stepOn(pLevel, pPos, pState, pEntity);
     }
 
