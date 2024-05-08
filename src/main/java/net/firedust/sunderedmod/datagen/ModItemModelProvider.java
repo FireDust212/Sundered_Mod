@@ -22,6 +22,8 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItems.PITTOOTH);
 
         handheldItem(ModItems.PITTOOTHSWORD);
+
+        withExistingParent(ModItems.PITCREATURESPAWNEGG.getId().getPath(), mcLoc("item/template_spawn_egg"));
         //simpleItem(ModItems.SCANNER);
     }
 

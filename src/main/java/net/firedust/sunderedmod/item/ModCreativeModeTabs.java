@@ -27,6 +27,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.PITTOOTHSWORD.get());
                         output.accept(ModItems.SCANNER.get());
                         output.accept(ModBlocks.PIT_BLOCK.get());
+                        output.accept(ModItems.PITCREATURESPAWNEGG.get());
                         // Vanilla items can be added here
                     })
                     .build());                                                              // Build

@@ -1,10 +1,12 @@
 package net.firedust.sunderedmod.item;
 
 import net.firedust.sunderedmod.SunderedMod;
+import net.firedust.sunderedmod.entity.ModEntities;
 import net.firedust.sunderedmod.item.custom.ScannerItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tiers;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -30,7 +32,9 @@ public class ModItems {
             () -> new SwordItem(Tiers.DIAMOND, 3, -2.4F, new Item.Properties()));
 
 
-
+    public static final RegistryObject<Item> PITCREATURESPAWNEGG = ITEMS.register("pit_creature_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.PIT_CREATURE, 0xbf360c, 0xd84315,
+                    new Item.Properties()));
 
     // Register the register
     public static void register(IEventBus bus){

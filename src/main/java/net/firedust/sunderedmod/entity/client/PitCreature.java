@@ -6,6 +6,8 @@ package net.firedust.sunderedmod.entity.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.firedust.sunderedmod.entity.animations.ModAnimationDefinitions;
+import net.firedust.sunderedmod.entity.custom.PitCreatureEntity;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -163,6 +165,11 @@ public class PitCreature<T extends Entity> extends HierarchicalModel<T> {
 
 	@Override
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		this.root().getAllParts().forEach(ModelPart::resetPose);
+
+		this.animateWalk(ModAnimationDefinitions.ANGRY, limbSwing, limbSwingAmount, 2f, .25f);
+		this.animate(((PitCreatureEntity) entity).idleAnimState, ModAnimationDefinitions.IDLE, ageInTicks, 1f);
+		this.animate(((PitCreatureEntity) entity).attackAnimState, ModAnimationDefinitions.ANGRY, ageInTicks, 1f);
 	}
 
 	@Override
