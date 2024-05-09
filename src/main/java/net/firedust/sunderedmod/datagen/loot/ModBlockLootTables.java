@@ -33,7 +33,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 //        this.add(ModBlocks.PIT_BLOCK.get(), block -> createCopperLikeOreDrops(ModBlocks.PIT_BLOCK.get(), ModItems.PITFLESH.get(), 1.0F, 2.0F));
 
         this.add(ModBlocks.PIT_BLOCK.get(), block -> createBlockWithTwoDrops(ModBlocks.PIT_BLOCK.get(), ModItems.PITTOOTH.get(), ModItems.PITFLESH.get(), 0.0F, 3.0F, 1.0F, 2.0F));
-
+        this.add(ModBlocks.PIT_CORE_BLOCK.get(), block -> createBlockWithTwoDrops(ModBlocks.PIT_CORE_BLOCK.get(), ModItems.PITTOOTH.get(), ModItems.PITFLESH.get(), 0.0F, 3.0F, 1.0F, 2.0F));
     }
 
     protected LootTable.Builder createCopperLikeOreDrops(Block pBlock, Item item, float min, float max) {

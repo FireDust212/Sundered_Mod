@@ -1,26 +1,20 @@
 package net.firedust.sunderedmod.entity.custom;
 
-import com.mojang.blaze3d.shaders.Effect;
 import net.firedust.sunderedmod.entity.ai.PitCreatureAttackGoal;
-import net.minecraft.client.renderer.EffectInstance;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
@@ -31,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 
 
 public class PitCreatureEntity extends Monster {
-    public int size = 2;
+    public int size = 1;
     // Bool that synchronizes between server and client
     private static final EntityDataAccessor<Boolean> ATTACKING =
             SynchedEntityData.defineId(PitCreatureEntity.class, EntityDataSerializers.BOOLEAN);
@@ -119,7 +113,9 @@ public class PitCreatureEntity extends Monster {
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
-        this.addEffect(new MobEffectInstance(MobEffects.HEALTH_BOOST, 9999, this.size*2, false, false));
+        if (this.size > 0){
+            this.addEffect(new MobEffectInstance(MobEffects.HEALTH_BOOST, 9999, this.size*2, false, false));
+        }
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
 

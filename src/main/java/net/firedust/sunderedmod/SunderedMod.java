@@ -2,6 +2,7 @@ package net.firedust.sunderedmod;
 
 import com.mojang.logging.LogUtils;
 import net.firedust.sunderedmod.block.ModBlocks;
+import net.firedust.sunderedmod.block.entity.ModBlockEntities;
 import net.firedust.sunderedmod.entity.ModEntities;
 import net.firedust.sunderedmod.entity.client.PitCreatureRenderer;
 import net.firedust.sunderedmod.item.ModCreativeModeTabs;
@@ -42,6 +43,7 @@ public class SunderedMod {
 
         // Entities
         ModEntities.register(modEventBus);
+        ModBlockEntities.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 
