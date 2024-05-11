@@ -1,6 +1,7 @@
 package net.firedust.sunderedmod.block.custom;
 
-import net.firedust.sunderedmod.entity.ModEntities;
+import net.firedust.sunderedmod.block.entity.ModBlockEntities;
+import net.firedust.sunderedmod.block.entity.PitBlockEntity;
 import net.firedust.sunderedmod.entity.custom.PitCreatureEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -13,25 +14,26 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class PitBlock extends RotatedPillarBlock {
+public class PitBlock extends SunderedSpreaderBlock<PitBlockEntity> {
     private final IntProvider xpRange;
 
     public PitBlock(Properties pProperties, IntProvider pXpRange) {
-        super(pProperties);
+        super(pProperties, () -> {return ModBlockEntities.PIT_BLOCK_BE.get();});
         this.xpRange = pXpRange;
     }
 
     // Same stepOn method as magma block, but without the sneaking and frostwalker check
     @Override
     public void stepOn(Level pLevel, BlockPos pPos, BlockState pState, Entity pEntity) {
-        if (!(pEntity instanceof PitCreatureEntity))
-            pEntity.hurt(pLevel.damageSources().hotFloor(), 1.0F);
+        if (!(pEntity instanceof PitCreatureEntity)) {
+            pEntity.hurt(pLevel.damageSources().stalagmite(), 1.0F);
+        }
         super.stepOn(pLevel, pPos, pState, pEntity);
     }
 
@@ -55,5 +57,11 @@ public class PitBlock extends RotatedPillarBlock {
 
     public int getExpDrop(BlockState state, LevelReader level, RandomSource randomSource, BlockPos pos, int fortuneLevel, int silkTouchLevel) {
         return silkTouchLevel == 0 ? this.xpRange.sample(randomSource) : 0;
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
+        return new PitBlockEntity(blockPos, blockState);
     }
 }

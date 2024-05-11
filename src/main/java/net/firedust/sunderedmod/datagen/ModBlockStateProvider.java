@@ -23,13 +23,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
         ResourceLocation pitSide = new ResourceLocation("sundered_mod","block/pit_block_side");
         ResourceLocation pitTeeth = new ResourceLocation("sundered_mod","block/pit_block_teeth");
 
-        axisBlock((RotatedPillarBlock) ModBlocks.PIT_BLOCK.get(), pitSide, pitTeeth);
-        simpleBlockItem((RotatedPillarBlock) ModBlocks.PIT_BLOCK.get(),
+        simpleBlockWithItem(ModBlocks.PIT_BLOCK.get(),
                 (ModelFile)this.models().cubeColumn("pit_block", pitSide, pitTeeth));
 
         ResourceLocation pitCoreTop = new ResourceLocation("sundered_mod","block/pit_core_top");
 
-        //axisBlock((RotatedPillarBlock) ModBlocks.PIT_CORE_BLOCK.get(), pitSide, pitCoreTop);
         simpleBlockWithItem(ModBlocks.PIT_CORE_BLOCK.get(),
                 (ModelFile)this.models().cubeColumn("pit_core_block", pitSide, pitCoreTop));
 

@@ -1,8 +1,7 @@
-// 1.20.2	2024-05-10T21:25:51.4417808	Block States: sundered_mod
-da22b9ee11a4524466e4a7e11e634ca6ad66abc2 assets/sundered_mod/blockstates/pit_block.json
+// 1.20.2	2024-05-11T09:34:28.2140601	Block States: sundered_mod
+4512364d5c8e4932b55365d8f77231a885d98a60 assets/sundered_mod/blockstates/pit_block.json
 b21daf6ee5438d6ce9cac34cee8ca03798ac5f79 assets/sundered_mod/blockstates/pit_core_block.json
 08e8117864255c4a078dcbb78f36d084adf9589f assets/sundered_mod/models/block/pit_block.json
-c2e78475a8e4321e590ec4ef8c4be87403016c8b assets/sundered_mod/models/block/pit_block_horizontal.json
 99da5af7bbed5abe7b9c8b479b0af1f6a8a4bdc8 assets/sundered_mod/models/block/pit_core_block.json
 385439373dd5e08c821e8bf04ba0bae30c2ee49d assets/sundered_mod/models/item/pit_block.json
 bd93485faf0cab4e108befb596f725c731ea4285 assets/sundered_mod/models/item/pit_core_block.json

@@ -8,7 +8,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.SculkSpreader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.BlockPositionSource;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -22,6 +21,7 @@ public class PitCoreBlockEntity extends SunderedSpreaderBlockEntity implements G
     private int size;
     private int consumed;
     private PitCoreListener pitCoreListener;
+    public static final int GROWTH_TIMER = 20;
 
     public PitCoreBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(ModBlockEntities.PIT_CORE_BE.get(), pPos, pBlockState);
@@ -48,7 +48,7 @@ public class PitCoreBlockEntity extends SunderedSpreaderBlockEntity implements G
     @Override
     protected boolean canSpreadDown(Level pLevel, BlockPos pPos, BlockState pState) {
         // Spread if pit has consumed enough
-        if (new Random().nextInt(20*(this.size+1)) == 0 && this.consumed >= this.size){
+        if (new Random().nextInt(GROWTH_TIMER) == 0 && this.consumed >= this.size){
             // Get block below pit
             BlockState state = pLevel.getBlockState(new BlockPos(pPos.getX(), pPos.getY() - 1, pPos.getZ()));
 
@@ -65,14 +65,16 @@ public class PitCoreBlockEntity extends SunderedSpreaderBlockEntity implements G
     protected void spreadDown(Level pLevel, BlockPos pPos, BlockState pState) {
         BlockPos pos = new BlockPos(pPos.getX(), pPos.getY() - 1, pPos.getZ());
 
-        PitCoreBlockEntity newCore = new PitCoreBlockEntity(pos, pState);
-        newCore.size = this.size + 1;
-        newCore.consumed = this.consumed - newCore.size;
+//        PitCoreBlockEntity newCore = new PitCoreBlockEntity(pos, pState);
+//        newCore.size = this.size + 1;
+//        newCore.consumed = this.consumed - newCore.size;
 
-        this.pitCoreListener = new PitCoreListener(newCore.getBlockState(), new BlockPositionSource(pos), this.size + 1);
-
+        //this.pitCoreListener = new PitCoreListener(newCore.getBlockState(), new BlockPositionSource(pos), this.size + 1);
+        this.size++;
+        this.consumed-=this.size;
+        this.pitCoreListener.radius = this.size+1;
         pLevel.setBlock(pos, pState, 3);
-        pLevel.setBlockEntity(newCore);
+        pLevel.setBlockEntity(this);
 
         pLevel.destroyBlock(pPos, false);
     }
