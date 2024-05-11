@@ -6,6 +6,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
+import java.util.Random;
+
 public class PitBlockEntity extends SunderedSpreaderBlockEntity{
     private PitCoreBlockEntity core;
     private Vec3i corePos;
@@ -44,7 +46,13 @@ public class PitBlockEntity extends SunderedSpreaderBlockEntity{
     @Override
     public void tick(Level pLevel, BlockPos pPos, BlockState pState) {
         // Get the core if possible
-        if (this.coreLess) return;
+        if (this.coreLess) {
+            // Decay if no core is found
+//            if (new Random().nextInt(SPREAD_TIMER) == 0) {
+//                pLevel.destroyBlock(pPos, false);
+//            }
+            return;
+        }
         if (this.core == null){
             if (this.corePos != null){
                 int checkingSize = 0;

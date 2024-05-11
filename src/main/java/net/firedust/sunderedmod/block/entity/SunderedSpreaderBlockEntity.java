@@ -6,28 +6,39 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
+import java.util.Random;
+
 public class SunderedSpreaderBlockEntity extends BlockEntity {
+    protected int SPREAD_TIMER = 20;
+
+
     public SunderedSpreaderBlockEntity(BlockEntityType<?> pType, BlockPos pPos, BlockState pBlockState) {
         super(pType, pPos, pBlockState);
     }
 
+    // Up: y + 1
+    // Down: y - 1
+    // North: z - 1
+    // South: z + 1
+    // East: x + 1
+    // West: x - 1
     public void tick(Level pLevel, BlockPos pPos, BlockState pState){
-        if(canSpreadUp(pLevel, pPos, pState)){
+        if(new Random().nextInt(SPREAD_TIMER) == 0 && canSpreadUp(pLevel, pPos, pState)){
             spreadUp(pLevel, pPos, pState);
         }
-        if(canSpreadDown(pLevel, pPos, pState)){
+        if(new Random().nextInt(SPREAD_TIMER) == 0 && canSpreadDown(pLevel, pPos, pState)){
             spreadDown(pLevel, pPos, pState);
         }
-        if(canSpreadNorth(pLevel, pPos, pState)){
+        if(new Random().nextInt(SPREAD_TIMER) == 0 && canSpreadNorth(pLevel, pPos, pState)){
             spreadNorth(pLevel, pPos, pState);
         }
-        if(canSpreadSouth(pLevel, pPos, pState)){
+        if(new Random().nextInt(SPREAD_TIMER) == 0 && canSpreadSouth(pLevel, pPos, pState)){
             spreadSouth(pLevel, pPos, pState);
         }
-        if(canSpreadEast(pLevel, pPos, pState)){
+        if(new Random().nextInt(SPREAD_TIMER) == 0 && canSpreadEast(pLevel, pPos, pState)){
             spreadEast(pLevel, pPos, pState);
         }
-        if(canSpreadWest(pLevel, pPos, pState)){
+        if(new Random().nextInt(SPREAD_TIMER) == 0 && canSpreadWest(pLevel, pPos, pState)){
             spreadWest(pLevel, pPos, pState);
         }
 

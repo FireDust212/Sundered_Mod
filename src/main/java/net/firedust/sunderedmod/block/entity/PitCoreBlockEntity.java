@@ -1,5 +1,6 @@
 package net.firedust.sunderedmod.block.entity;
 
+import net.firedust.sunderedmod.block.ModBlocks;
 import net.firedust.sunderedmod.entity.custom.PitCreatureEntity;
 import net.firedust.sunderedmod.util.ModTags;
 import net.minecraft.core.BlockPos;
@@ -21,12 +22,11 @@ public class PitCoreBlockEntity extends SunderedSpreaderBlockEntity implements G
     private int size;
     private int consumed;
     private PitCoreListener pitCoreListener;
-    public static final int GROWTH_TIMER = 20;
 
     public PitCoreBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(ModBlockEntities.PIT_CORE_BE.get(), pPos, pBlockState);
         this.size = 0;
-        this.consumed = 0;
+        this.consumed = 0; //5
         this.pitCoreListener = new PitCoreListener(pBlockState, new BlockPositionSource(pPos), this.size + 1);
     }
 
@@ -46,9 +46,24 @@ public class PitCoreBlockEntity extends SunderedSpreaderBlockEntity implements G
     }
 
     @Override
+    protected boolean canSpreadUp(Level pLevel, BlockPos pPos, BlockState pState) {
+        // Get block above pit core by size
+        BlockState state = pLevel.getBlockState(new BlockPos(pPos.getX(), pPos.getY() + this.size, pPos.getZ()));
+
+        // Spread if block is spreadable
+        if (state.isAir()){
+            return true;
+        }
+        return false;
+    }
+    @Override
     protected boolean canSpreadDown(Level pLevel, BlockPos pPos, BlockState pState) {
-        // Spread if pit has consumed enough
-        if (new Random().nextInt(GROWTH_TIMER) == 0 && this.consumed >= this.size){
+        // Spread if pit has consumed enough, only if all spots around it are pit
+        if (this.consumed >= this.size &&
+                !this.canSpreadNorth(pLevel, pPos, pState) &&
+                !this.canSpreadSouth(pLevel, pPos, pState) &&
+                !this.canSpreadEast(pLevel, pPos, pState) &&
+                !this.canSpreadWest(pLevel, pPos, pState)){
             // Get block below pit
             BlockState state = pLevel.getBlockState(new BlockPos(pPos.getX(), pPos.getY() - 1, pPos.getZ()));
 
@@ -60,23 +75,99 @@ public class PitCoreBlockEntity extends SunderedSpreaderBlockEntity implements G
         }
         return false;
     }
+    @Override
+    protected boolean canSpreadNorth(Level pLevel, BlockPos pPos, BlockState pState) {
+        if(this.size == 0) return false;
+        // Get block north of pit core
+        BlockState state = pLevel.getBlockState(new BlockPos(pPos.getX(), pPos.getY(), pPos.getZ() - 1));
 
+        // Spread if block is spreadable
+        if (state.is(ModTags.Blocks.PIT_SPREADABLE)){
+            return true;
+        }
+        return false;
+    }
+    @Override
+    protected boolean canSpreadSouth(Level pLevel, BlockPos pPos, BlockState pState) {
+        if(this.size == 0) return false;
+        // Get block south of pit core
+        BlockState state = pLevel.getBlockState(new BlockPos(pPos.getX(), pPos.getY(), pPos.getZ() + 1));
+
+        // Spread if block is spreadable
+        if (state.is(ModTags.Blocks.PIT_SPREADABLE)){
+            return true;
+        }
+        return false;
+    }
+    @Override
+    protected boolean canSpreadEast(Level pLevel, BlockPos pPos, BlockState pState) {
+        if(this.size == 0) return false;
+        // Get block east of pit core
+        BlockState state = pLevel.getBlockState(new BlockPos(pPos.getX() + 1, pPos.getY(), pPos.getZ()));
+
+        // Spread if block is spreadable
+        if (state.is(ModTags.Blocks.PIT_SPREADABLE)){
+            return true;
+        }
+        return false;
+    }
+    @Override
+    protected boolean canSpreadWest(Level pLevel, BlockPos pPos, BlockState pState) {
+        if(this.size == 0) return false;
+        // Get block west of pit core
+        BlockState state = pLevel.getBlockState(new BlockPos(pPos.getX() - 1, pPos.getY(), pPos.getZ()));
+
+        // Spread if block is spreadable
+        if (state.is(ModTags.Blocks.PIT_SPREADABLE)){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    protected void spreadUp(Level pLevel, BlockPos pPos, BlockState pState) {
+        super.spreadUp(pLevel, pPos, pState);
+    }
     @Override
     protected void spreadDown(Level pLevel, BlockPos pPos, BlockState pState) {
         BlockPos pos = new BlockPos(pPos.getX(), pPos.getY() - 1, pPos.getZ());
 
-//        PitCoreBlockEntity newCore = new PitCoreBlockEntity(pos, pState);
-//        newCore.size = this.size + 1;
-//        newCore.consumed = this.consumed - newCore.size;
+        PitCoreBlockEntity newCore = new PitCoreBlockEntity(pos, pState);
+        newCore.size = this.size + 1;
+        newCore.consumed = this.consumed - newCore.size;
 
-        //this.pitCoreListener = new PitCoreListener(newCore.getBlockState(), new BlockPositionSource(pos), this.size + 1);
-        this.size++;
-        this.consumed-=this.size;
-        this.pitCoreListener.radius = this.size+1;
+        this.pitCoreListener = new PitCoreListener(newCore.getBlockState(), new BlockPositionSource(pos), this.size + 1);
+
         pLevel.setBlock(pos, pState, 3);
-        pLevel.setBlockEntity(this);
+        pLevel.setBlockEntity(newCore);
+
 
         pLevel.destroyBlock(pPos, false);
+        pLevel.removeBlockEntity(pPos);
+    }
+    @Override
+    protected void spreadNorth(Level pLevel, BlockPos pPos, BlockState pState) {
+        BlockPos pos = new BlockPos(pPos.getX(), pPos.getY(), pPos.getZ() - 1);
+        pLevel.setBlock(pos, ModBlocks.PIT_BLOCK.get().defaultBlockState(), 3);
+        pLevel.setBlockEntity(new PitBlockEntity(pos, ModBlocks.PIT_BLOCK.get().defaultBlockState(), this));
+    }
+    @Override
+    protected void spreadSouth(Level pLevel, BlockPos pPos, BlockState pState) {
+        BlockPos pos = new BlockPos(pPos.getX(), pPos.getY(), pPos.getZ() + 1);
+        pLevel.setBlock(pos, ModBlocks.PIT_BLOCK.get().defaultBlockState(), 3);
+        pLevel.setBlockEntity(new PitBlockEntity(pos, ModBlocks.PIT_BLOCK.get().defaultBlockState(), this));
+    }
+    @Override
+    protected void spreadEast(Level pLevel, BlockPos pPos, BlockState pState) {
+        BlockPos pos = new BlockPos(pPos.getX() + 1, pPos.getY(), pPos.getZ());
+        pLevel.setBlock(pos, ModBlocks.PIT_BLOCK.get().defaultBlockState(), 3);
+        pLevel.setBlockEntity(new PitBlockEntity(pos, ModBlocks.PIT_BLOCK.get().defaultBlockState(), this));
+    }
+    @Override
+    protected void spreadWest(Level pLevel, BlockPos pPos, BlockState pState) {
+        BlockPos pos = new BlockPos(pPos.getX() - 1, pPos.getY(), pPos.getZ());
+        pLevel.setBlock(pos, ModBlocks.PIT_BLOCK.get().defaultBlockState(), 3);
+        pLevel.setBlockEntity(new PitBlockEntity(pos, ModBlocks.PIT_BLOCK.get().defaultBlockState(), this));
     }
 
     public void grow(){
