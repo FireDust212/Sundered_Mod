@@ -13,6 +13,7 @@ public class ModTags {
     public static class Blocks{
         // Key to use in code
         public static final TagKey<Block> PIT_COMPONENTS = tag("pit_components");
+        public static final TagKey<Block> PIT_SPREADABLE = tag("pit_spreadable");
 
         // Helper to create tag
         private static TagKey<Block> tag(String name){

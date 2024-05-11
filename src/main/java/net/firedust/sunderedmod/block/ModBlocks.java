@@ -32,6 +32,7 @@ public class ModBlocks {
                      UniformInt.of(3, 6)) // Exp
     );
     // Duplicate the above two lines to create a new block (and the relevant json files and such
+
     public static final RegistryObject<Block> PIT_CORE_BLOCK = registerBlock("pit_core_block",
             () -> new PitCoreBlock(  // This block drops experience
                     BlockBehaviour.Properties

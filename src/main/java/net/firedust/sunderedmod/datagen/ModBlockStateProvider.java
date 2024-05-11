@@ -29,9 +29,10 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         ResourceLocation pitCoreTop = new ResourceLocation("sundered_mod","block/pit_core_top");
 
-        axisBlock((RotatedPillarBlock) ModBlocks.PIT_CORE_BLOCK.get(), pitSide, pitCoreTop);
-        simpleBlockItem((RotatedPillarBlock) ModBlocks.PIT_CORE_BLOCK.get(),
-                (ModelFile)this.models().cubeColumn("pit_block", pitSide, pitCoreTop));
+        //axisBlock((RotatedPillarBlock) ModBlocks.PIT_CORE_BLOCK.get(), pitSide, pitCoreTop);
+        simpleBlockWithItem(ModBlocks.PIT_CORE_BLOCK.get(),
+                (ModelFile)this.models().cubeColumn("pit_core_block", pitSide, pitCoreTop));
+
     }
 
     // Makes a custom block as well as the item for it, just by passing in a block registry

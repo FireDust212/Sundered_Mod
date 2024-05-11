@@ -6,7 +6,6 @@ import net.firedust.sunderedmod.util.ModTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
-import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
@@ -24,6 +23,10 @@ public class ModBlockTagProvider extends BlockTagsProvider {
         this.tag(ModTags.Blocks.PIT_COMPONENTS)
                 .add(ModBlocks.PIT_BLOCK.get());    // Can add multiple blocks with one add -> .add(block1, block2 ...)
                 //.addTag(Tags.Blocks.ORES);    <- can add tags to this tag
+
+        this.tag(ModTags.Blocks.PIT_SPREADABLE)
+                //.addTag(BlockTags.SCULK_REPLACEABLE)
+                .addTag(BlockTags.DIRT);
 
         this.tag(BlockTags.NEEDS_STONE_TOOL)
                 .add(ModBlocks.PIT_BLOCK.get());

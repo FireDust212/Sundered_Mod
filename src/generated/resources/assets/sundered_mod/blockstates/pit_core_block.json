@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "sundered_mod:block/pit_core_block"
+    }
+  }
+}

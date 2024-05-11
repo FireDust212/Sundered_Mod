@@ -7,19 +7,16 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public class PitCoreBlock extends SunderedSpreaderBlock{
+public class PitCoreBlock extends SunderedSpreaderBlock<PitCoreBlockEntity> {
     private final IntProvider xpRange;
 
     public PitCoreBlock(Properties pProperties, IntProvider pXpRange) {
-        super(pProperties, ModBlockEntities.PIT_CORE_BE.get());
+        super(pProperties, () -> {return ModBlockEntities.PIT_CORE_BE.get();});
         this.xpRange = pXpRange;
     }
 
