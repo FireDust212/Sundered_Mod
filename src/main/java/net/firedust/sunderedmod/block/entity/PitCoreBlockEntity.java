@@ -26,7 +26,13 @@ public class PitCoreBlockEntity extends SunderedSpreaderBlockEntity implements G
     public PitCoreBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(ModBlockEntities.PIT_CORE_BE.get(), pPos, pBlockState);
         this.size = 0;
-        this.consumed = 9;
+        this.consumed = 0;
+        this.pitCoreListener = new PitCoreListener(pBlockState, new BlockPositionSource(pPos), this.size + 1);
+    }
+    public PitCoreBlockEntity(BlockPos pPos, BlockState pBlockState, int size, int consumed) {
+        super(ModBlockEntities.PIT_CORE_BE.get(), pPos, pBlockState);
+        this.size = size;
+        this.consumed = consumed;
         this.pitCoreListener = new PitCoreListener(pBlockState, new BlockPositionSource(pPos), this.size + 1);
     }
 
@@ -136,9 +142,7 @@ public class PitCoreBlockEntity extends SunderedSpreaderBlockEntity implements G
     protected void spreadDown(Level pLevel, BlockPos pPos, BlockState pState) {
         BlockPos pos = new BlockPos(pPos.getX(), pPos.getY() - 1, pPos.getZ());
 
-        PitCoreBlockEntity newCore = new PitCoreBlockEntity(pos, pState);
-        newCore.size = this.size + 1;
-        newCore.consumed = this.consumed - newCore.size;
+        PitCoreBlockEntity newCore = new PitCoreBlockEntity(pos, pState, this.size + 1, this.consumed - this.size - 1);
 
         this.pitCoreListener = new PitCoreListener(newCore.getBlockState(), new BlockPositionSource(pos), this.size + 1);
 
@@ -154,25 +158,33 @@ public class PitCoreBlockEntity extends SunderedSpreaderBlockEntity implements G
     protected void spreadNorth(Level pLevel, BlockPos pPos, BlockState pState) {
         BlockPos pos = new BlockPos(pPos.getX(), pPos.getY(), pPos.getZ() - 1);
         pLevel.setBlock(pos, ModBlocks.PIT_BLOCK.get().defaultBlockState(), 3);
-        pLevel.setBlockEntity(new PitBlockEntity(pos, ModBlocks.PIT_BLOCK.get().defaultBlockState(), this));
+        pLevel.setBlockEntity(new PitBlockEntity(pos, ModBlocks.PIT_BLOCK.get().defaultBlockState(), this,
+                false, false, false,
+                true, false, false));
     }
     @Override
     protected void spreadSouth(Level pLevel, BlockPos pPos, BlockState pState) {
         BlockPos pos = new BlockPos(pPos.getX(), pPos.getY(), pPos.getZ() + 1);
         pLevel.setBlock(pos, ModBlocks.PIT_BLOCK.get().defaultBlockState(), 3);
-        pLevel.setBlockEntity(new PitBlockEntity(pos, ModBlocks.PIT_BLOCK.get().defaultBlockState(), this));
+        pLevel.setBlockEntity(new PitBlockEntity(pos, ModBlocks.PIT_BLOCK.get().defaultBlockState(), this,
+                false, false, true,
+                false, false, false));
     }
     @Override
     protected void spreadEast(Level pLevel, BlockPos pPos, BlockState pState) {
         BlockPos pos = new BlockPos(pPos.getX() + 1, pPos.getY(), pPos.getZ());
         pLevel.setBlock(pos, ModBlocks.PIT_BLOCK.get().defaultBlockState(), 3);
-        pLevel.setBlockEntity(new PitBlockEntity(pos, ModBlocks.PIT_BLOCK.get().defaultBlockState(), this));
+        pLevel.setBlockEntity(new PitBlockEntity(pos, ModBlocks.PIT_BLOCK.get().defaultBlockState(), this,
+                false, false, false,
+                false, false, true));
     }
     @Override
     protected void spreadWest(Level pLevel, BlockPos pPos, BlockState pState) {
         BlockPos pos = new BlockPos(pPos.getX() - 1, pPos.getY(), pPos.getZ());
         pLevel.setBlock(pos, ModBlocks.PIT_BLOCK.get().defaultBlockState(), 3);
-        pLevel.setBlockEntity(new PitBlockEntity(pos, ModBlocks.PIT_BLOCK.get().defaultBlockState(), this));
+        pLevel.setBlockEntity(new PitBlockEntity(pos, ModBlocks.PIT_BLOCK.get().defaultBlockState(), this,
+                false, false, false,
+                false, true, false));
     }
 
     public void grow(){
@@ -188,9 +200,9 @@ public class PitCoreBlockEntity extends SunderedSpreaderBlockEntity implements G
     public static class PitCoreListener implements GameEventListener {
         public int radius;
         private final BlockState blockState;
-        private final PositionSource positionSource;
+        private final BlockPositionSource positionSource;
 
-        public PitCoreListener(BlockState pBlockState, PositionSource pPositionSource, int radius) {
+        public PitCoreListener(BlockState pBlockState, BlockPositionSource pPositionSource, int radius) {
             this.blockState = pBlockState;
             this.positionSource = pPositionSource;
             this.radius = radius;
@@ -215,9 +227,14 @@ public class PitCoreBlockEntity extends SunderedSpreaderBlockEntity implements G
                     if (!livSource.wasExperienceConsumed()) {
                         livSource.skipDropExperience();
                     }
-                    Vec3 pos2 = positionSource.getPosition(serverLevel).get();
-                    PitCoreBlockEntity pE = ((PitCoreBlockEntity) serverLevel.getBlockEntity(new BlockPos((int) pos2.x, (int) pos2.y, (int) pos2.z)));
-                    if(pE != null) pE.grow();
+                    try{
+                        this.positionSource.getPosition(serverLevel).ifPresent((be) -> {
+                            PitCoreBlockEntity p = serverLevel.getBlockEntity(BlockPos.containing(be), ModBlockEntities.PIT_CORE_BE.get()).get();
+                            p.grow();
+                        });
+                    } catch(Exception e){
+                        System.out.println(e);
+                    }
                     return true;
                 }
             }
