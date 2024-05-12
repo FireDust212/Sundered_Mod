@@ -26,7 +26,7 @@ public class PitCoreBlockEntity extends SunderedSpreaderBlockEntity implements G
     public PitCoreBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(ModBlockEntities.PIT_CORE_BE.get(), pPos, pBlockState);
         this.size = 0;
-        this.consumed = 0; //5
+        this.consumed = 9;
         this.pitCoreListener = new PitCoreListener(pBlockState, new BlockPositionSource(pPos), this.size + 1);
     }
 
@@ -43,6 +43,10 @@ public class PitCoreBlockEntity extends SunderedSpreaderBlockEntity implements G
         size = pTag.getInt("pit_core_block.size");
         consumed = pTag.getInt("pit_core_block.consumed");
         this.pitCoreListener.radius =  this.size + 1;
+    }
+
+    public int getSize() {
+        return size;
     }
 
     @Override
@@ -138,6 +142,7 @@ public class PitCoreBlockEntity extends SunderedSpreaderBlockEntity implements G
 
         this.pitCoreListener = new PitCoreListener(newCore.getBlockState(), new BlockPositionSource(pos), this.size + 1);
 
+        // Need the set block and the set block entity
         pLevel.setBlock(pos, pState, 3);
         pLevel.setBlockEntity(newCore);
 

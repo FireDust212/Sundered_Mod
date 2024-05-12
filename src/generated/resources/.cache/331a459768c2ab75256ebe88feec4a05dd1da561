@@ -1,5 +1,5 @@
-// 1.20.2	2024-05-10T21:21:32.3836897	Tags for minecraft:block mod id sundered_mod
+// 1.20.2	2024-05-11T21:22:53.2189407	Tags for minecraft:block mod id sundered_mod
 1748ce3df868e67250a982df13af19a37eaab9e0 data/minecraft/tags/blocks/mineable/shovel.json
 1748ce3df868e67250a982df13af19a37eaab9e0 data/minecraft/tags/blocks/needs_stone_tool.json
-1748ce3df868e67250a982df13af19a37eaab9e0 data/sundered_mod/tags/blocks/pit_components.json
-69c396cb051bbe9a130e6979b67065e5041b179d data/sundered_mod/tags/blocks/pit_spreadable.json
+7401cb4ac7d18ee16adbed28b3e5add46c551cc1 data/sundered_mod/tags/blocks/pit_components.json
+89b564ee9d1727aa4dc647d0d9e7844804f775ce data/sundered_mod/tags/blocks/pit_spreadable.json
