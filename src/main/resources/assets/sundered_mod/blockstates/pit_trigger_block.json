@@ -1,0 +1,37 @@
+{
+  "variants": {
+    "grass=true": [
+      {
+        "model": "sundered_mod:block/pit_trigger_block"
+      },
+      {
+        "model": "sundered_mod:block/pit_trigger_block",
+        "y": 90
+      },
+      {
+        "model": "sundered_mod:block/pit_trigger_block",
+        "y": 180
+      },
+      {
+        "model": "sundered_mod:block/pit_trigger_block",
+        "y": 270
+      }
+    ],
+    "grass=false": [
+      {
+        "model": "minecraft:block/stone"
+      },
+      {
+        "model": "minecraft:block/stone_mirrored"
+      },
+      {
+        "model": "minecraft:block/stone",
+        "y": 180
+      },
+      {
+        "model": "minecraft:block/stone_mirrored",
+        "y": 180
+      }
+    ]
+  }
+}

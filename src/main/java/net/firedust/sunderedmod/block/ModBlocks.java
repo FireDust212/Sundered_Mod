@@ -3,6 +3,7 @@ package net.firedust.sunderedmod.block;
 import net.firedust.sunderedmod.SunderedMod;
 import net.firedust.sunderedmod.block.custom.PitBlock;
 import net.firedust.sunderedmod.block.custom.PitCoreBlock;
+import net.firedust.sunderedmod.block.custom.PitTrigger;
 import net.firedust.sunderedmod.item.ModItems;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
@@ -41,6 +42,11 @@ public class ModBlocks {
                             .requiresCorrectToolForDrops(), // Technically covered by copying stone, but just making sure
                     UniformInt.of(3, 6)) // Exp
     );
+
+    public static final RegistryObject<Block> PIT_TRIGGER = registerBlock("pit_trigger_block",
+            () -> new PitTrigger(BlockBehaviour.Properties
+                    .copy(Blocks.GRASS_BLOCK)
+                    .sound(SoundType.WART_BLOCK)));
 
 
     // Helper methods

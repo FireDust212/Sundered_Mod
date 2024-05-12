@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.Mod;
 
 // These events are not Forge events, they are mod events
 // Middle mouse click on an event to determine its type
+// Implements IModBusEvent means it goes in this file
 @Mod.EventBusSubscriber(modid = SunderedMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ModEventBusClientEvents {
     @SubscribeEvent

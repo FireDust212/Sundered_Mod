@@ -31,6 +31,17 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlockWithItem(ModBlocks.PIT_CORE_BLOCK.get(),
                 (ModelFile)this.models().cubeColumn("pit_core_block", pitSide, pitCoreTop));
 
+        simpleBlockItem(ModBlocks.PIT_TRIGGER.get(),
+                (ModelFile) this.models().getExistingFile(
+                        new ResourceLocation("sundered_mod", "block/pit_trigger_block")));
+
+//        simpleBlockWithItem(ModBlocks.PIT_TRIGGER.get(),
+//                (ModelFile) this.models().cubeBottomTop("pit_trigger_block",
+//                        new ResourceLocation("minecraft", "block/grass_block_side"),
+//                        new ResourceLocation("minecraft", "block/dirt"),
+//                        new ResourceLocation("minecraft", "block/grass_block_top")
+//                ));
+
     }
 
     // Makes a custom block as well as the item for it, just by passing in a block registry

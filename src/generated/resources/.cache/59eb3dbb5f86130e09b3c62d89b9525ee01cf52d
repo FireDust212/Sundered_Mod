@@ -1,3 +1,4 @@
-// 1.20.2	2024-05-10T21:21:32.3826975	Loot Tables
+// 1.20.2	2024-05-12T12:43:23.0544943	Loot Tables
 36143e8512b9b2fa0ad804f46ec0807a3c70143e data/sundered_mod/loot_tables/blocks/pit_block.json
 ca5b4d87197f0c200c983e7ceb2e09b2af43caec data/sundered_mod/loot_tables/blocks/pit_core_block.json
+ac5a1ea1cfee2a42fd99902926af82e85fc60a44 data/sundered_mod/loot_tables/blocks/pit_trigger_block.json

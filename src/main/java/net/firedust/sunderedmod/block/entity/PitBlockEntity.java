@@ -275,6 +275,8 @@ public class PitBlockEntity extends SunderedSpreaderBlockEntity{
         float y = Math.abs(newPos.getY() - cp.getY());
         float z = Math.abs(newPos.getZ() - cp.getZ());
 
-        return y <= size && x <= y + 1 && z <= y + 1;
+        //return y <= size && x <= (y + 1) / 2 && z <= (y + 1) / 2; // skinny
+        return y <= size && x <= y + 1 && z <= y + 1; // regular
+        //return y <= size && x <= (y + 1) * 2 && z <= (y + 1) * 2; // wide
     }
 }
