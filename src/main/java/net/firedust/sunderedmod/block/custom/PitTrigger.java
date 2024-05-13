@@ -1,11 +1,14 @@
 package net.firedust.sunderedmod.block.custom;
 
 import net.firedust.sunderedmod.block.entity.ModBlockEntities;
+import net.firedust.sunderedmod.block.entity.PitCoreBlockEntity;
 import net.firedust.sunderedmod.block.entity.PitTriggerEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -15,12 +18,22 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
+
 public class PitTrigger extends SunderedSpreaderBlock<PitTriggerEntity> {
     public static final BooleanProperty GRASS;
 
     public PitTrigger(Properties pProperties) {
         super(pProperties, () -> {return ModBlockEntities.PIT_TRIGGER_BE.get();});
         this.registerDefaultState((BlockState)((BlockState)this.stateDefinition.any()).setValue(GRASS, true));
+    }
+
+    @Override
+    public void stepOn(Level pLevel, BlockPos pPos, BlockState pState, Entity pEntity) {
+        ((PitTriggerEntity) Objects.requireNonNull(pLevel.getBlockEntity(pPos))).tellCoreAboutTrigger();
+
+        pLevel.removeBlockEntity(pPos);
+        pLevel.destroyBlock(pPos, false);
     }
 
     @Nullable

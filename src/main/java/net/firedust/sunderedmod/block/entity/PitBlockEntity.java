@@ -7,10 +7,6 @@ import net.minecraft.core.Vec3i;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec2;
-
-import java.util.Random;
 
 public class PitBlockEntity extends SunderedSpreaderBlockEntity{
     private PitCoreBlockEntity core;
@@ -48,9 +44,13 @@ public class PitBlockEntity extends SunderedSpreaderBlockEntity{
 
     @Override
     protected void saveAdditional(CompoundTag pTag) {
-        pTag.putInt("pit_block_core.x", this.core.getBlockPos().getX());
-        pTag.putInt("pit_block_core.y", this.core.getBlockPos().getY());
-        pTag.putInt("pit_block_core.z", this.core.getBlockPos().getZ());
+        if (this.core != null) {
+            pTag.putInt("pit_block.core.x", this.core.getBlockPos().getX());
+            pTag.putInt("pit_block.core.y", this.core.getBlockPos().getY());
+            pTag.putInt("pit_block.core.z", this.core.getBlockPos().getZ());
+        }
+
+        pTag.putBoolean("pit_block.coreLess", this.coreLess);
 
         pTag.putBoolean("pit_block.noSpreadUp", this.noSpreadUp);
         pTag.putBoolean("pit_block.noSpreadDown", this.noSpreadDown);
@@ -65,11 +65,16 @@ public class PitBlockEntity extends SunderedSpreaderBlockEntity{
     public void load(CompoundTag pTag) {
         super.load(pTag);
         this.core = null;
-        this.corePos = new Vec3i(
-                pTag.getInt("pit_block_core.x"),
-                pTag.getInt("pit_block_core.y"),
-                pTag.getInt("pit_block_core.z")
-        );
+        this.coreLess = pTag.getBoolean("pit_block.coreLess");
+        if(!this.coreLess) {
+            this.corePos = new Vec3i(
+                    pTag.getInt("pit_block.core.x"),
+                    pTag.getInt("pit_block.core.y"),
+                    pTag.getInt("pit_block.core.z")
+            );
+        }
+        else this.corePos = null;
+
         this.noSpreadUp = pTag.getBoolean("pit_block.noSpreadUp");
         this.noSpreadDown = pTag.getBoolean("pit_block.noSpreadDown");
         this.noSpreadNorth = pTag.getBoolean("pit_block.noSpreadNorth");
@@ -87,10 +92,6 @@ public class PitBlockEntity extends SunderedSpreaderBlockEntity{
 
         // Get the core if possible
         if (this.coreLess) {
-            // Decay if no core is found
-//            if (new Random().nextInt(SPREAD_TIMER) == 0) {
-//                pLevel.destroyBlock(pPos, false);
-//            }
             return;
         }
         try{

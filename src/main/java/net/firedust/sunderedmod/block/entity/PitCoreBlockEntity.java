@@ -1,6 +1,7 @@
 package net.firedust.sunderedmod.block.entity;
 
 import net.firedust.sunderedmod.block.ModBlocks;
+import net.firedust.sunderedmod.block.custom.PitTrigger;
 import net.firedust.sunderedmod.entity.custom.PitCreatureEntity;
 import net.firedust.sunderedmod.util.ModTags;
 import net.minecraft.core.BlockPos;
@@ -16,18 +17,27 @@ import net.minecraft.world.level.gameevent.GameEventListener;
 import net.minecraft.world.level.gameevent.PositionSource;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.Random;
+import static net.firedust.sunderedmod.block.custom.PitTrigger.GRASS;
 
 public class PitCoreBlockEntity extends SunderedSpreaderBlockEntity implements GameEventListener.Holder{
     private int size;
     private int consumed;
     private PitCoreListener pitCoreListener;
+    private boolean grassy = true;
+    private int triggerTimer = 0;
 
     public PitCoreBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(ModBlockEntities.PIT_CORE_BE.get(), pPos, pBlockState);
         this.size = 0;
         this.consumed = 0;
         this.pitCoreListener = new PitCoreListener(pBlockState, new BlockPositionSource(pPos), this.size + 1);
+    }
+    public PitCoreBlockEntity(BlockPos pPos, BlockState pBlockState, boolean grassy) {
+        super(ModBlockEntities.PIT_CORE_BE.get(), pPos, pBlockState);
+        this.size = 0;
+        this.consumed = 0;
+        this.pitCoreListener = new PitCoreListener(pBlockState, new BlockPositionSource(pPos), this.size + 1);
+        this.grassy = grassy;
     }
     public PitCoreBlockEntity(BlockPos pPos, BlockState pBlockState, int size, int consumed) {
         super(ModBlockEntities.PIT_CORE_BE.get(), pPos, pBlockState);
@@ -40,6 +50,8 @@ public class PitCoreBlockEntity extends SunderedSpreaderBlockEntity implements G
     protected void saveAdditional(CompoundTag pTag) {
         pTag.putInt("pit_core_block.size", this.size);
         pTag.putInt("pit_core_block.consumed", this.consumed);
+        pTag.putInt("pit_core_block.triggerTimer", this.triggerTimer);
+        pTag.putBoolean("pit_core_block.grassy", this.grassy);
         super.saveAdditional(pTag);
     }
 
@@ -48,6 +60,8 @@ public class PitCoreBlockEntity extends SunderedSpreaderBlockEntity implements G
         super.load(pTag);
         size = pTag.getInt("pit_core_block.size");
         consumed = pTag.getInt("pit_core_block.consumed");
+        triggerTimer = pTag.getInt("pit_core_block.triggerTimer");
+        grassy = pTag.getBoolean("pit_core_block.grassy");
         this.pitCoreListener.radius =  this.size + 1;
     }
 
@@ -55,8 +69,19 @@ public class PitCoreBlockEntity extends SunderedSpreaderBlockEntity implements G
         return size;
     }
 
+    public void resetTriggerTimer() {
+        this.triggerTimer = 0;
+    }
+
+    @Override
+    public void tick(Level pLevel, BlockPos pPos, BlockState pState) {
+        if (this.triggerTimer < this.size * 15 * this.SPREAD_TIMER) this.triggerTimer++;
+        super.tick(pLevel, pPos, pState);
+    }
+
     @Override
     protected boolean canSpreadUp(Level pLevel, BlockPos pPos, BlockState pState) {
+        if (this.triggerTimer < this.size * 15 * this.SPREAD_TIMER) return false;
         // Get block above pit core by size
         BlockState state = pLevel.getBlockState(new BlockPos(pPos.getX(), pPos.getY() + this.size, pPos.getZ()));
 
@@ -136,7 +161,14 @@ public class PitCoreBlockEntity extends SunderedSpreaderBlockEntity implements G
 
     @Override
     protected void spreadUp(Level pLevel, BlockPos pPos, BlockState pState) {
-        super.spreadUp(pLevel, pPos, pState);
+        BlockPos pos = new BlockPos(pPos.getX(), pPos.getY() + this.size, pPos.getZ());
+        if(pLevel.getBlockState(pos).isAir()) {
+            BlockState newTrigState = ModBlocks.PIT_TRIGGER.get().defaultBlockState().setValue(GRASS, this.grassy);
+            PitTriggerEntity newTrigger = new PitTriggerEntity(pos, newTrigState, this);
+
+            pLevel.setBlock(pos, newTrigState, 3);
+            pLevel.setBlockEntity(newTrigger);
+        }
     }
     @Override
     protected void spreadDown(Level pLevel, BlockPos pPos, BlockState pState) {
