@@ -1,7 +1,6 @@
 package net.firedust.sunderedmod.block.entity;
 
 import net.firedust.sunderedmod.block.ModBlocks;
-import net.firedust.sunderedmod.block.custom.PitTrigger;
 import net.firedust.sunderedmod.entity.custom.PitCreatureEntity;
 import net.firedust.sunderedmod.util.ModTags;
 import net.minecraft.core.BlockPos;
@@ -81,7 +80,7 @@ public class PitCoreBlockEntity extends SunderedSpreaderBlockEntity implements G
 
     @Override
     protected boolean canSpreadUp(Level pLevel, BlockPos pPos, BlockState pState) {
-        if (this.triggerTimer < this.size * 15 * this.SPREAD_TIMER) return false;
+        if (this.size == 0 || (this.triggerTimer < this.size * 15 * this.SPREAD_TIMER)) return false;
         // Get block above pit core by size
         BlockState state = pLevel.getBlockState(new BlockPos(pPos.getX(), pPos.getY() + this.size, pPos.getZ()));
 
@@ -164,7 +163,7 @@ public class PitCoreBlockEntity extends SunderedSpreaderBlockEntity implements G
         BlockPos pos = new BlockPos(pPos.getX(), pPos.getY() + this.size, pPos.getZ());
         if(pLevel.getBlockState(pos).isAir()) {
             BlockState newTrigState = ModBlocks.PIT_TRIGGER.get().defaultBlockState().setValue(GRASS, this.grassy);
-            PitTriggerEntity newTrigger = new PitTriggerEntity(pos, newTrigState, this);
+            PitTriggerBlockEntity newTrigger = new PitTriggerBlockEntity(pos, newTrigState, this);
 
             pLevel.setBlock(pos, newTrigState, 3);
             pLevel.setBlockEntity(newTrigger);

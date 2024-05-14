@@ -23,6 +23,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
         // Add new block tags
         this.tag(ModTags.Blocks.PIT_COMPONENTS)
                 .add(ModBlocks.PIT_CORE_BLOCK.get())
+                .add(ModBlocks.PIT_TRIGGER.get())
                 .add(ModBlocks.PIT_BLOCK.get());    // Can add multiple blocks with one add -> .add(block1, block2 ...)
                 //.addTag(Tags.Blocks.ORES);    <- can add tags to this tag
 

@@ -1,8 +1,7 @@
 package net.firedust.sunderedmod.block.custom;
 
 import net.firedust.sunderedmod.block.entity.ModBlockEntities;
-import net.firedust.sunderedmod.block.entity.PitCoreBlockEntity;
-import net.firedust.sunderedmod.block.entity.PitTriggerEntity;
+import net.firedust.sunderedmod.block.entity.PitTriggerBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
@@ -20,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-public class PitTrigger extends SunderedSpreaderBlock<PitTriggerEntity> {
+public class PitTrigger extends SunderedSpreaderBlock<PitTriggerBlockEntity> {
     public static final BooleanProperty GRASS;
 
     public PitTrigger(Properties pProperties) {
@@ -30,7 +29,7 @@ public class PitTrigger extends SunderedSpreaderBlock<PitTriggerEntity> {
 
     @Override
     public void stepOn(Level pLevel, BlockPos pPos, BlockState pState, Entity pEntity) {
-        ((PitTriggerEntity) Objects.requireNonNull(pLevel.getBlockEntity(pPos))).tellCoreAboutTrigger();
+        ((PitTriggerBlockEntity) Objects.requireNonNull(pLevel.getBlockEntity(pPos))).tellCoreAboutTrigger();
 
         pLevel.removeBlockEntity(pPos);
         pLevel.destroyBlock(pPos, false);
@@ -39,7 +38,7 @@ public class PitTrigger extends SunderedSpreaderBlock<PitTriggerEntity> {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return new PitTriggerEntity(blockPos, blockState);
+        return new PitTriggerBlockEntity(blockPos, blockState);
     }
 
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {

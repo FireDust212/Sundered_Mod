@@ -7,48 +7,49 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class PitTriggerEntity extends SunderedSpreaderBlockEntity{
-    private PitCoreBlockEntity core;
-    private Vec3i corePos;
-    private boolean coreLess = false;
+public class PitComponentBlockEntity extends SunderedSpreaderBlockEntity{
+    protected PitCoreBlockEntity core;
+    protected Vec3i corePos;
+    protected int size;
+    protected boolean coreLess = false;
 
-
-    public PitTriggerEntity(BlockPos pPos, BlockState pBlockState) {
-        super(ModBlockEntities.PIT_TRIGGER_BE.get(), pPos, pBlockState);
+    public PitComponentBlockEntity(BlockEntityType<?> pType, BlockPos pPos, BlockState pBlockState) {
+        super(pType, pPos, pBlockState);
+        this.core = null;
+        this.corePos = null;
+        this.size = 0;
     }
-    public PitTriggerEntity(BlockPos pPos, BlockState pBlockState, PitCoreBlockEntity core) {
-        super(ModBlockEntities.PIT_TRIGGER_BE.get(), pPos, pBlockState);
+    public PitComponentBlockEntity(BlockEntityType<?> pType, BlockPos pPos, BlockState pBlockState, PitCoreBlockEntity core) {
+        super(pType, pPos, pBlockState);
         this.core = core;
         this.corePos = core.getBlockPos();
+        this.size = core.getSize();
     }
 
     @Override
     protected void saveAdditional(CompoundTag pTag) {
         if (this.core != null) {
-            pTag.putInt("pit_trigger.core.x", this.core.getBlockPos().getX());
-            pTag.putInt("pit_trigger.core.y", this.core.getBlockPos().getY());
-            pTag.putInt("pit_trigger.core.z", this.core.getBlockPos().getZ());
+            pTag.putInt("pit_component_block.core.x", this.core.getBlockPos().getX());
+            pTag.putInt("pit_component_block.core.y", this.core.getBlockPos().getY());
+            pTag.putInt("pit_component_block.core.z", this.core.getBlockPos().getZ());
         }
 
-        pTag.putBoolean("pit_trigger.coreLess", this.coreLess);
-
+        pTag.putBoolean("pit_component_block.coreLess", this.coreLess);
         super.saveAdditional(pTag);
     }
 
     @Override
     public void load(CompoundTag pTag) {
         super.load(pTag);
-
         this.core = null;
-        this.coreLess = pTag.getBoolean("pit_trigger.coreLess");
-        if(!this.coreLess) {
+        this.coreLess = pTag.getBoolean("pit_component_block.coreLess");
+        if (!this.coreLess) {
             this.corePos = new Vec3i(
-                    pTag.getInt("pit_trigger.core.x"),
-                    pTag.getInt("pit_trigger.core.y"),
-                    pTag.getInt("pit_trigger.core.z")
+                    pTag.getInt("pit_component_block.core.x"),
+                    pTag.getInt("pit_component_block.core.y"),
+                    pTag.getInt("pit_component_block.core.z")
             );
-        }
-        else this.corePos = null;
+        } else this.corePos = null;
     }
 
     @Override
@@ -92,10 +93,4 @@ public class PitTriggerEntity extends SunderedSpreaderBlockEntity{
 
         super.tick(pLevel, pPos, pState);
     }
-
-    public void tellCoreAboutTrigger(){
-        if (this.core != null) this.core.resetTriggerTimer();
-    }
-
-
 }

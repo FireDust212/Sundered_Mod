@@ -3,16 +3,11 @@ package net.firedust.sunderedmod.block.entity;
 import net.firedust.sunderedmod.block.ModBlocks;
 import net.firedust.sunderedmod.util.ModTags;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Vec3i;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class PitBlockEntity extends SunderedSpreaderBlockEntity{
-    private PitCoreBlockEntity core;
-    private Vec3i corePos;
-    private int size;
-    private boolean coreLess = false;
+public class PitBlockEntity extends PitComponentBlockEntity{
     private boolean noSpreadUp = false;
     private boolean noSpreadDown = false;
     private boolean noSpreadNorth = false;
@@ -29,10 +24,7 @@ public class PitBlockEntity extends SunderedSpreaderBlockEntity{
     public PitBlockEntity(BlockPos pPos, BlockState pBlockState, PitCoreBlockEntity core,
                           boolean noSpreadUp, boolean noSpreadDown, boolean noSpreadNorth,
                           boolean noSpreadSouth, boolean noSpreadEast, boolean noSpreadWest) {
-        super(ModBlockEntities.PIT_BLOCK_BE.get(), pPos, pBlockState);
-        this.core = core;
-        this.corePos = core.getBlockPos();
-        this.size = core.getSize();
+        super(ModBlockEntities.PIT_BLOCK_BE.get(), pPos, pBlockState, core);
 
         this.noSpreadUp = noSpreadUp;
         this.noSpreadDown = noSpreadDown;
@@ -44,14 +36,6 @@ public class PitBlockEntity extends SunderedSpreaderBlockEntity{
 
     @Override
     protected void saveAdditional(CompoundTag pTag) {
-        if (this.core != null) {
-            pTag.putInt("pit_block.core.x", this.core.getBlockPos().getX());
-            pTag.putInt("pit_block.core.y", this.core.getBlockPos().getY());
-            pTag.putInt("pit_block.core.z", this.core.getBlockPos().getZ());
-        }
-
-        pTag.putBoolean("pit_block.coreLess", this.coreLess);
-
         pTag.putBoolean("pit_block.noSpreadUp", this.noSpreadUp);
         pTag.putBoolean("pit_block.noSpreadDown", this.noSpreadDown);
         pTag.putBoolean("pit_block.noSpreadNorth", this.noSpreadNorth);
@@ -64,17 +48,6 @@ public class PitBlockEntity extends SunderedSpreaderBlockEntity{
     @Override
     public void load(CompoundTag pTag) {
         super.load(pTag);
-        this.core = null;
-        this.coreLess = pTag.getBoolean("pit_block.coreLess");
-        if(!this.coreLess) {
-            this.corePos = new Vec3i(
-                    pTag.getInt("pit_block.core.x"),
-                    pTag.getInt("pit_block.core.y"),
-                    pTag.getInt("pit_block.core.z")
-            );
-        }
-        else this.corePos = null;
-
         this.noSpreadUp = pTag.getBoolean("pit_block.noSpreadUp");
         this.noSpreadDown = pTag.getBoolean("pit_block.noSpreadDown");
         this.noSpreadNorth = pTag.getBoolean("pit_block.noSpreadNorth");
@@ -88,45 +61,6 @@ public class PitBlockEntity extends SunderedSpreaderBlockEntity{
         if(this.isSurrounded(pLevel, pPos, pState)){
             pLevel.destroyBlock(pPos, false);
             pLevel.removeBlockEntity(pPos);
-        }
-
-        // Get the core if possible
-        if (this.coreLess) {
-            return;
-        }
-        try{
-            this.core = (PitCoreBlockEntity) pLevel.getBlockEntity(new BlockPos(this.corePos));
-        } catch(Exception e){
-            this.core = null;
-        }
-        if (this.core == null){
-            if (this.corePos != null){
-                int checkingSize = 0;
-                while (this.core == null && checkingSize < 3){
-                    try{
-                        this.core = (PitCoreBlockEntity) pLevel.getBlockEntity(new BlockPos(
-                                this.corePos.getX(),
-                                this.corePos.getY()-checkingSize,
-                                this.corePos.getZ())
-                        );
-                    } catch(Exception e){
-                        System.out.println(e);
-                    }
-                    checkingSize++;
-                }
-                // Stop checking for a core
-                if (this.core == null) {
-                    this.coreLess = true;
-                    this.corePos = null;
-                    this.size = 0;
-                    return;
-                }
-                this.corePos = this.core.getBlockPos();
-                this.size = this.core.getSize();
-            }
-            else{
-                return;
-            }
         }
         super.tick(pLevel, pPos, pState);
     }
@@ -276,8 +210,12 @@ public class PitBlockEntity extends SunderedSpreaderBlockEntity{
         float y = Math.abs(newPos.getY() - cp.getY());
         float z = Math.abs(newPos.getZ() - cp.getZ());
 
+        // Square
         //return y <= size && x <= (y + 1) / 2 && z <= (y + 1) / 2; // skinny
-        return y <= size && x <= y + 1 && z <= y + 1; // regular
+        //return y <= size && x <= y + 1 && z <= y + 1; // regular
         //return y <= size && x <= (y + 1) * 2 && z <= (y + 1) * 2; // wide
+
+        // Circle
+        return y <= size && Math.pow(x, 2) + Math.pow(z, 2) <= Math.pow(y + 1, 2);
     }
 }
