@@ -15,7 +15,8 @@
   "block.sundered_mod.pit_core_block": "Pit core",
 
   "block.sundered_mod.pit_trigger_block": "Pit trigger",
-
+  "block.sundered_mod.pit_trap_block": "Pit trap",
+  "tooltip.sundered_mod.pit_trap": "A transient thing",
 
   "creativetab.sundered_tab": "Sundered Mod Tab",
 

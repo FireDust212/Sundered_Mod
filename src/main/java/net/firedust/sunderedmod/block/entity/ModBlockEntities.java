@@ -27,6 +27,11 @@ public class ModBlockEntities {
                     () -> BlockEntityType.Builder.of(PitTriggerBlockEntity::new,
                             ModBlocks.PIT_TRIGGER.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<PitTrapBlockEntity>> PIT_TRAP_BE =
+            BLOCK_ENTITIES.register("pit_trap_be",
+                    () -> BlockEntityType.Builder.of(PitTrapBlockEntity::new,
+                            ModBlocks.PIT_TRAP.get()).build(null));
+
     public static void register(IEventBus bus){
         BLOCK_ENTITIES.register(bus);
     }

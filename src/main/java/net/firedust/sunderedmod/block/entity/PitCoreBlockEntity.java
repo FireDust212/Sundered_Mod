@@ -72,15 +72,23 @@ public class PitCoreBlockEntity extends SunderedSpreaderBlockEntity implements G
         this.triggerTimer = 0;
     }
 
+    public boolean isTriggerTriggered() {
+        return this.size == 0 || (this.triggerTimer < this.size * 15 * this.SPREAD_TIMER);
+    }
+
+    public boolean isGrassy() {
+        return grassy;
+    }
+
     @Override
     public void tick(Level pLevel, BlockPos pPos, BlockState pState) {
-        if (this.triggerTimer < this.size * 15 * this.SPREAD_TIMER) this.triggerTimer++;
+        if (this.isTriggerTriggered()) this.triggerTimer++;
         super.tick(pLevel, pPos, pState);
     }
 
     @Override
     protected boolean canSpreadUp(Level pLevel, BlockPos pPos, BlockState pState) {
-        if (this.size == 0 || (this.triggerTimer < this.size * 15 * this.SPREAD_TIMER)) return false;
+        if (this.isTriggerTriggered()) return false;
         // Get block above pit core by size
         BlockState state = pLevel.getBlockState(new BlockPos(pPos.getX(), pPos.getY() + this.size, pPos.getZ()));
 

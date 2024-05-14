@@ -30,6 +30,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
         this.tag(ModTags.Blocks.PIT_SPREADABLE)
                 //.addTag(BlockTags.SCULK_REPLACEABLE)
                 .addTag(BlockTags.DIRT)
+                .add(Blocks.AIR)
                 .add(Blocks.GLASS);
 
         this.tag(BlockTags.NEEDS_STONE_TOOL)

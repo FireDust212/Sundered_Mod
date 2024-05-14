@@ -18,13 +18,13 @@ public final class ColorHandler {
     public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
         event.register((p_276237_, p_276238_, p_276239_, p_276240_) -> {
             return p_276238_ != null && p_276239_ != null ? BiomeColors.getAverageGrassColor(p_276238_, p_276239_) : GrassColor.getDefaultColor();
-        }, ModBlocks.PIT_TRIGGER.get());
+        }, ModBlocks.PIT_TRIGGER.get(), ModBlocks.PIT_TRAP.get());
     }
     @SubscribeEvent
     public static void registerItemColors(RegisterColorHandlersEvent.Item event){
         event.register((p_92687_, p_92688_) -> {
             BlockState blockstate = ((BlockItem)p_92687_.getItem()).getBlock().defaultBlockState();
             return event.getBlockColors().getColor(blockstate, (BlockAndTintGetter)null, (BlockPos)null, p_92688_);
-        }, ModBlocks.PIT_TRIGGER.get());
+        }, ModBlocks.PIT_TRIGGER.get(), ModBlocks.PIT_TRAP.get());
     }
 }

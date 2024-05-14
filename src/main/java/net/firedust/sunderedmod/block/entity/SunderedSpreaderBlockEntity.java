@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.Random;
 
 public class SunderedSpreaderBlockEntity extends BlockEntity {
-    protected int SPREAD_TIMER = 19;
+    protected int SPREAD_TIMER = 19;//19
     private int tickTracker = 0;
     private int UP_CHANCE = 4;
     private int DOWN_CHANCE = 4;

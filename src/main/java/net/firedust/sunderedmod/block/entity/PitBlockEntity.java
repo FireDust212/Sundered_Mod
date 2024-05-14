@@ -7,6 +7,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
+import static net.firedust.sunderedmod.block.custom.PitTrigger.GRASS;
+
 public class PitBlockEntity extends PitComponentBlockEntity{
     private boolean noSpreadUp = false;
     private boolean noSpreadDown = false;
@@ -61,6 +63,7 @@ public class PitBlockEntity extends PitComponentBlockEntity{
         if(this.isSurrounded(pLevel, pPos, pState)){
             pLevel.destroyBlock(pPos, false);
             pLevel.removeBlockEntity(pPos);
+            return;
         }
         super.tick(pLevel, pPos, pState);
     }
@@ -91,8 +94,8 @@ public class PitBlockEntity extends PitComponentBlockEntity{
         BlockPos aPos = new BlockPos(pPos.getX(), pPos.getY() + 1, pPos.getZ());
         BlockState aboveState = pLevel.getBlockState(aPos);
 
-        if (withinPit(aPos, new BlockPos(this.corePos), this.size) &&
-                (aboveState.is(ModTags.Blocks.PIT_SPREADABLE) || aboveState.isAir()) &&
+        if (withinPit(aPos, new BlockPos(this.corePos)) &&
+                aboveState.is(ModTags.Blocks.PIT_SPREADABLE) &&
                 !(this.core == null)) {
             return true;
         }
@@ -105,8 +108,8 @@ public class PitBlockEntity extends PitComponentBlockEntity{
         BlockState belowState = pLevel.getBlockState(bPos);
 
         if (bPos.getY() >= this.corePos.getY() &&
-                withinPit(bPos, new BlockPos(this.corePos), this.size) &&
-                (belowState.is(ModTags.Blocks.PIT_SPREADABLE) || belowState.isAir()) &&
+                withinPit(bPos, new BlockPos(this.corePos)) &&
+                belowState.is(ModTags.Blocks.PIT_SPREADABLE) &&
                 !(this.core == null)) {
             return true;
         }
@@ -119,8 +122,8 @@ public class PitBlockEntity extends PitComponentBlockEntity{
         BlockState northState = pLevel.getBlockState(nPos);
 
         if (nPos.getY() >= this.corePos.getY() &&
-                withinPit(nPos, new BlockPos(this.corePos), this.size) &&
-                (northState.is(ModTags.Blocks.PIT_SPREADABLE) || northState.isAir()) &&
+                withinPit(nPos, new BlockPos(this.corePos)) &&
+                northState.is(ModTags.Blocks.PIT_SPREADABLE) &&
                 !(this.core == null)) {
             return true;
         }
@@ -133,8 +136,8 @@ public class PitBlockEntity extends PitComponentBlockEntity{
         BlockState southState = pLevel.getBlockState(sPos);
 
         if (sPos.getY() >= this.corePos.getY() &&
-                withinPit(sPos, new BlockPos(this.corePos), this.size) &&
-                (southState.is(ModTags.Blocks.PIT_SPREADABLE) || southState.isAir()) &&
+                withinPit(sPos, new BlockPos(this.corePos)) &&
+                southState.is(ModTags.Blocks.PIT_SPREADABLE) &&
                 !(this.core == null)) {
             return true;
         }
@@ -147,8 +150,8 @@ public class PitBlockEntity extends PitComponentBlockEntity{
         BlockState eastState = pLevel.getBlockState(ePos);
 
         if (ePos.getY() >= this.corePos.getY() &&
-                withinPit(ePos, new BlockPos(this.corePos), this.size) &&
-                (eastState.is(ModTags.Blocks.PIT_SPREADABLE) || eastState.isAir()) &&
+                withinPit(ePos, new BlockPos(this.corePos)) &&
+                eastState.is(ModTags.Blocks.PIT_SPREADABLE) &&
                 !(this.core == null)) {
             return true;
         }
@@ -161,14 +164,22 @@ public class PitBlockEntity extends PitComponentBlockEntity{
         BlockState westState = pLevel.getBlockState(wPos);
 
         if (wPos.getY() >= this.corePos.getY() &&
-                withinPit(wPos, new BlockPos(this.corePos), this.size) &&
-                (westState.is(ModTags.Blocks.PIT_SPREADABLE) || westState.isAir()) &&
+                withinPit(wPos, new BlockPos(this.corePos)) &&
+                westState.is(ModTags.Blocks.PIT_SPREADABLE) &&
                 !(this.core == null)) {
             return true;
         }
         return false;
     }
 
+//    @Override
+//    protected void spreadUp(Level pLevel, BlockPos pPos, BlockState pState) {
+//        BlockPos pos = new BlockPos(pPos.getX(), pPos.getY() + 1, pPos.getZ());
+//        pLevel.setBlock(pos, ModBlocks.PIT_TRAP.get().defaultBlockState(), 3);
+//        pLevel.setBlockEntity(new PitTrapBlockEntity(pos, ModBlocks.PIT_TRAP.get().defaultBlockState().setValue(GRASS, this.core.isGrassy()), this.core,
+//                true, this.noSpreadDown, this.noSpreadNorth, this.noSpreadSouth, this.noSpreadEast, this.noSpreadWest));
+//
+//    }
     @Override
     protected void spreadDown(Level pLevel, BlockPos pPos, BlockState pState) {
         BlockPos pos = new BlockPos(pPos.getX(), pPos.getY() - 1, pPos.getZ());
@@ -205,17 +216,17 @@ public class PitBlockEntity extends PitComponentBlockEntity{
                 this.noSpreadUp, this.noSpreadDown, this.noSpreadNorth, this.noSpreadSouth, true, this.noSpreadWest));
     }
 
-    protected boolean withinPit(BlockPos newPos, BlockPos cp, int coreSize){
+    protected boolean withinPit(BlockPos newPos, BlockPos cp){
         float x = Math.abs(newPos.getX() - cp.getX());
         float y = Math.abs(newPos.getY() - cp.getY());
         float z = Math.abs(newPos.getZ() - cp.getZ());
 
         // Square
-        //return y <= size && x <= (y + 1) / 2 && z <= (y + 1) / 2; // skinny
-        //return y <= size && x <= y + 1 && z <= y + 1; // regular
-        //return y <= size && x <= (y + 1) * 2 && z <= (y + 1) * 2; // wide
+        //return y <= this.size && x <= (y + 1) / 2 && z <= (y + 1) / 2; // skinny
+        //return y <= this.size && x <= y + 1 && z <= y + 1; // regular
+        //return y <= this.size && x <= (y + 1) * 2 && z <= (y + 1) * 2; // wide
 
         // Circle
-        return y <= size && Math.pow(x, 2) + Math.pow(z, 2) <= Math.pow(y + 1, 2);
+        return y <= this.size && Math.pow(x, 2) + Math.pow(z, 2) <= Math.pow(y + 1, 2);
     }
 }

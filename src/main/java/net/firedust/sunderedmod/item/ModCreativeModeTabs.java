@@ -29,6 +29,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.PIT_CORE_BLOCK.get());
                         output.accept(ModBlocks.PIT_BLOCK.get());
                         output.accept(ModBlocks.PIT_TRIGGER.get());
+                        output.accept(ModBlocks.PIT_TRAP.get());
                         output.accept(ModItems.PITCREATURESPAWNEGG.get());
                         // Vanilla items can be added here
                     })

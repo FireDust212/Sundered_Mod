@@ -42,7 +42,7 @@ public class PitComponentBlockEntity extends SunderedSpreaderBlockEntity{
     public void load(CompoundTag pTag) {
         super.load(pTag);
         this.core = null;
-        this.coreLess = pTag.getBoolean("pit_component_block.coreLess");
+        this.coreLess = false;
         if (!this.coreLess) {
             this.corePos = new Vec3i(
                     pTag.getInt("pit_component_block.core.x"),
@@ -85,6 +85,7 @@ public class PitComponentBlockEntity extends SunderedSpreaderBlockEntity{
                     return;
                 }
                 this.corePos = this.core.getBlockPos();
+                this.size = this.core.getSize();
             }
             else{
                 return;
